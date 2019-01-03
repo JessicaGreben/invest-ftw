@@ -8,6 +8,8 @@ import (
 	"strconv"
 )
 
+var templates = template.Must(template.ParseGlob("static/*"))
+
 func main() {
 	serverStart()
 }
@@ -15,17 +17,14 @@ func main() {
 func serverStart() {
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/submit", submitPage)
+	http.HandleFunc("/resources", resourcesPage)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("./static/index.html")
+	err := templates.ExecuteTemplate(w, "indexPage", nil)
 	if err != nil {
-		log.Print("template parsing error: ", err)
-	}
-	err = t.Execute(w, nil)
-	if err != nil {
-		log.Print("template executing error: ", err)
+		log.Print("template ExecuteTemplate error: ", err)
 	}
 }
 
@@ -41,13 +40,9 @@ func submitPage(w http.ResponseWriter, r *http.Request) {
 		Init:     i,
 		Invested: calculate(i),
 	}
-	t, err := template.ParseFiles("./static/invest.html")
+	err := templates.ExecuteTemplate(w, "submitPage", iv)
 	if err != nil {
 		log.Print("template parsing error: ", err)
-	}
-	err = t.Execute(w, iv)
-	if err != nil {
-		log.Print("template executing error: ", err)
 	}
 }
 
@@ -60,4 +55,11 @@ func calculate(init string) string {
 	y := frequency * years
 	total := principal * math.Pow(t, y)
 	return strconv.Itoa(int(total))
+}
+
+func resourcesPage(w http.ResponseWriter, r *http.Request) {
+	err := templates.ExecuteTemplate(w, "resourcePage", nil)
+	if err != nil {
+		log.Print("template parsing error: ", err)
+	}
 }
