@@ -3,10 +3,13 @@ language: golang
 services:
   - docker
 
+env:
+  - IMG=jessgreb/invest-ftw:$TRAVIS_COMMIT
+
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t jessgreb/invest-ftw:$TRAVIS_COMMIT .
-  - docker push jessgreb/invest-ftw:$TRAVIS_COMMIT
+  - docker build -t $IMG .
+  - docker push $IMG
 
 script:
-  - docker run --entrypoint "/bin/ls" invest -al /app
+  - docker run --entrypoint "/bin/ls" $IMG -al /app
