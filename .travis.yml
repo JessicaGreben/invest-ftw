@@ -4,9 +4,9 @@ services:
   - docker
 
 before_install:
-  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  docker build -t invest-ftw:$TRAVIS_COMMIT .
-  docker push jessgreb/invest-ftw:$TRAVIS_COMMIT
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t invest-ftw:$TRAVIS_COMMIT .
+  - docker push jessgreb/invest-ftw:$TRAVIS_COMMIT
 
 script:
-  docker run --entrypoint "/bin/ls" invest -al /app
+  - docker run --entrypoint "/bin/ls" invest -al /app
