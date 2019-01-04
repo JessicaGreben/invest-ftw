@@ -21,7 +21,7 @@ steps:
     type: deploy
     kind: kubernetes
     cluster: standard-cluster-1@prod-cluster
-    namespace: default
+    namespace: invest-ftw
     when:
       branch:
         only:
