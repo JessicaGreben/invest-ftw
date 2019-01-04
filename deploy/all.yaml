@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: invest-ftw-deploy
+  namespace: invest-ftw
+  labels:
+    app: invest-ftw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invest-ftw
+  template:
+    metadata:
+      labels:
+        app: invest-ftw
+    spec:
+      serviceAccountName: invest-ftw
+      containers:
+      - name: invest-ftw
+        image: jessgreb/invest-ftw
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
