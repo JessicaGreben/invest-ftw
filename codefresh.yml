@@ -1,0 +1,29 @@
+version: '1.0'
+steps:
+
+  build_image:
+    title: Building Docker Image
+    type: build
+    image_name: jessgreb/invest-ftw
+    working_directory: ./
+    dockerfile: Dockerfile
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+
+  push_image:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: '${{build_image}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+    registry: invest-ftw
+
+  deploy:
+    title: Running Deploy Script
+    type: deploy
+    kind: kubernetes
+    cluster: standard-cluster-1@prod-cluster
+    namespace: default
+    when:
+      branch:
+        only:
+          - master
+    file_path: ./deploy/deploy.yaml

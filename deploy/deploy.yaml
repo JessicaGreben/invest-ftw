@@ -19,7 +19,7 @@ spec:
       serviceAccountName: invest-ftw
       containers:
       - name: invest-ftw
-        image: jessgreb/invest-ftw:master
+        image: jessgreb/invest-ftw
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
