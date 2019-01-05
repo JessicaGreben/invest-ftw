@@ -1,0 +1,14 @@
+{{define "stockPage"}}
+{{template "header"}}
+
+<!-- start class container -->
+<div class="container">
+
+    <h3><a href="https://investor.vanguard.com/mutual-funds/profile/VTSMX">VTSMX</a></h3>
+    <p>{{ .Date }}: Current Price ${{ .Price }}</p>
+
+</div>
+<!-- end class container -->
+
+{{template "footer"}}
+{{end}}
