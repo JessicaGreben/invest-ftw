@@ -53,9 +53,9 @@ func calculate(init string) string {
 	frequency := 12.0
 	years := 30.0
 	rate := 0.07
-	t := 1 + rate/frequency
-	y := frequency * years
-	total := principal * math.Pow(t, y)
+	tRate := 1 + rate/frequency
+	time := frequency * years
+	total := principal * math.Pow(tRate, time)
 	return strconv.Itoa(int(total))
 }
 
