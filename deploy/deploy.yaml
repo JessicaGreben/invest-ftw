@@ -30,3 +30,9 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
+        env:
+        - name: STOCK_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: stock-apikey
+              key: STOCK_API_KEY
